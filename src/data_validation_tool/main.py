@@ -1,5 +1,5 @@
-from data_migration_tool.loaders.csv_loader import load_csv
-from data_migration_tool.analyzers.counts import (
+from data_validation_tool.loaders.csv_loader import load_csv
+from data_validation_tool.analyzers.counts import (
     count_total,
     count_nulls,
     count_unique,

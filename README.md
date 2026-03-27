@@ -1,24 +1,38 @@
-# data-migratie-tool
+# Data Validation Tool
 
-Een Python-tool voor het analyseren en vergelijken van datasets (JSON, CSV, Excel) voor migratietesten.
+Een Python-tool voor het analyseren en valideren van datasets (CSV, JSON, Excel).
 
 ## Doel
 
 Deze tool helpt bij:
-- controleren van record aantallen
-- detecteren van ontbrekende of dubbele records
-- analyseren van data verschillen tussen bron en doel
-- ondersteunen van migratietesten
+- data kwaliteit controleren
+- migratietesten ondersteunen
+- inzicht krijgen in datasets
+
+## Functionaliteit
+
+### Single dataset analyse
+- totaal aantal records
+- null/lege waarden per kolom
+- unieke waarden
+- duplicate detectie
+- verdeling per kolom (bijv. status)
+
+### Dataset vergelijking (WIP)
+- bron vs doel vergelijking
+- ontbrekende records
+- extra records
+- veldverschillen
 
 ## Tech stack
 
 - Python
 - pandas
-- uv (package manager)
+- uv
 
 ## Setup
 
 ```bash
 git clone <repo-url>
-cd data-migratie-tool
+cd data-validation-tool
 uv sync

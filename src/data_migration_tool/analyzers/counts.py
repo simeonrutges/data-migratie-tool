@@ -1,0 +1,21 @@
+import pandas as pd
+
+
+def count_total(df: pd.DataFrame) -> int:
+    """Geef het totaal aantal records terug."""
+    return len(df)
+
+
+def count_nulls(df: pd.DataFrame) -> pd.Series:
+    """Geef per kolom het aantal null/lege waarden terug."""
+    return df.isnull().sum()
+
+
+def count_unique(df: pd.DataFrame, column: str) -> int:
+    """Geef het aantal unieke waarden in een kolom terug."""
+    return df[column].nunique()
+
+
+def count_duplicates(df: pd.DataFrame, column: str) -> int:
+    """Geef het aantal duplicate records terug op basis van een kolom."""
+    return df.duplicated(subset=[column]).sum()

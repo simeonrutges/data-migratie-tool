@@ -4,6 +4,7 @@ from data_migration_tool.analyzers.counts import (
     count_nulls,
     count_unique,
     count_duplicates,
+    count_per_value,
 )
 
 
@@ -16,6 +17,8 @@ def main() -> None:
     print(f"Aantal duplicate IDs: {count_duplicates(df, 'id')}")
     print("\nNulls per kolom:")
     print(count_nulls(df))
+    print("\nAantal per status:")
+    print(count_per_value(df, "status"))
 
 
 if __name__ == "__main__":

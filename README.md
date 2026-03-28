@@ -104,16 +104,3 @@ configureerbare kolommen en keys
 verbeterde output/rapportage
 
 ---
-
-# Wat nu doen
-
-1. Open `README.md`  
-2. Plak dit erin  
-3. Save  
-
-Daarna:
-
-```bash
-git add README.md
-git commit -m "Add README with project overview"
-git push

@@ -9,6 +9,7 @@ from data_validation_tool.analyzers.counts import (
 from data_validation_tool.analyzers.compare import (
     compare_ids,
     compare_distribution,
+    get_interesting_columns,
 )
 
 
@@ -27,6 +28,9 @@ def main() -> None:
     bron_df = load_csv("data/compare/bron.csv")
     doel_df = load_csv("data/compare/doel.csv")
 
+    print("\nKolommen in bron:")
+    print(bron_df.columns)
+
     print("\n=== VERGELIJKING BRON VS DOEL ===")
 
     source_ids = set(bron_df["id"].dropna())
@@ -41,11 +45,20 @@ def main() -> None:
     print(f"Alleen in bron: {result['only_in_source']}")
     print(f"Alleen in doel: {result['only_in_target']}")
 
-    print("\n=== DISTRIBUTIE STATUS ===")
+    print("\n=== DISTRIBUTIE VERGELIJKING ===")
 
-    source_counts, target_counts, diff = compare_distribution(
-        bron_df, doel_df, "status"
+    interesting_columns = get_interesting_columns(
+        bron_df,
+        max_unique=10,
+        exclude_columns=["id"],
     )
+
+    print(f"Interessante kolommen: {interesting_columns}")
+
+    for column in interesting_columns:
+        print(f"\n--- Kolom: {column} ---")
+
+    source_counts, target_counts, diff = compare_distribution(bron_df, doel_df, column)
 
     print("\nBron:")
     print(source_counts)
@@ -54,8 +67,8 @@ def main() -> None:
     print(target_counts)
 
     print("\nVerschil (doel - bron):")
-    for k, v in diff.items():
-        print(f"{k}: {v:+}")
+    for value, difference in diff.items():
+        print(f"{value}: {difference:+}")
 
 
 if __name__ == "__main__":

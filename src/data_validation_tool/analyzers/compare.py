@@ -34,3 +34,29 @@ def compare_distribution(source_df: pd.DataFrame, target_df: pd.DataFrame, colum
         differences[value] = target_val - source_val
 
     return source_counts, target_counts, differences
+
+
+def get_interesting_columns(
+    df: pd.DataFrame,
+    max_unique: int = 10,
+    exclude_columns: list[str] | None = None,
+) -> list[str]:
+    if exclude_columns is None:
+        exclude_columns = []
+
+    interesting_columns = []
+
+    for column in df.columns:
+        if column in exclude_columns:
+            continue
+
+        if "datum" in column.lower() or "date" in column.lower():
+            continue
+
+        unique_count = df[column].nunique(dropna=False)
+        row_count = len(df)
+
+        if unique_count <= max_unique and unique_count < row_count:
+            interesting_columns.append(column)
+
+    return interesting_columns

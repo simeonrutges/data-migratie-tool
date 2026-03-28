@@ -60,3 +60,53 @@ def get_interesting_columns(
             interesting_columns.append(column)
 
     return interesting_columns
+
+
+def normalize_value(value):
+    if pd.isna(value):
+        return None
+
+    if isinstance(value, str):
+        return value.strip().lower()
+
+    return value
+
+
+def compare_rows(
+    source_df: pd.DataFrame,
+    target_df: pd.DataFrame,
+    key_column: str,
+) -> list[dict]:
+    merged_df = source_df.merge(
+        target_df,
+        on=key_column,
+        how="inner",
+        suffixes=("_bron", "_doel"),
+    )
+
+    differences = []
+
+    for _, row in merged_df.iterrows():
+        for column in source_df.columns:
+            if column == key_column:
+                continue
+
+            source_value = row[f"{column}_bron"]
+            target_value = row[f"{column}_doel"]
+
+            normalized_source = normalize_value(source_value)
+            normalized_target = normalize_value(target_value)
+
+            if normalized_source == normalized_target:
+                continue
+
+            differences.append(
+                {
+                    "id": row[key_column],
+                    "kolom": column,
+                    "bron": source_value,
+                    "doel": target_value,
+                }
+            )
+
+    return differences

@@ -9,6 +9,7 @@ from data_validation_tool.analyzers.counts import (
 from data_validation_tool.analyzers.compare import (
     compare_ids,
     compare_distribution,
+    compare_rows,
     get_interesting_columns,
 )
 
@@ -69,6 +70,19 @@ def main() -> None:
     print("\nVerschil (doel - bron):")
     for value, difference in diff.items():
         print(f"{value}: {difference:+}")
+
+    print("\n=== VELD-VERSCHILLEN ===")
+
+    row_differences = compare_rows(bron_df, doel_df, "id")
+
+    if not row_differences:
+        print("Geen veldverschillen gevonden.")
+    else:
+        for diff in row_differences:
+            print(
+                f"ID {diff['id']} - kolom '{diff['kolom']}': "
+                f"bron='{diff['bron']}' -> doel='{diff['doel']}'"
+            )
 
 
 if __name__ == "__main__":

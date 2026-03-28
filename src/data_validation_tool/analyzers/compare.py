@@ -1,7 +1,9 @@
 import pandas as pd
 
 
-def compare_ids(source_df: pd.DataFrame, target_df: pd.DataFrame, key_column: str) -> dict:
+def compare_ids(
+    source_df: pd.DataFrame, target_df: pd.DataFrame, key_column: str
+) -> dict:
     source_ids = set(source_df[key_column].dropna())
     target_ids = set(target_df[key_column].dropna())
 
@@ -14,3 +16,21 @@ def compare_ids(source_df: pd.DataFrame, target_df: pd.DataFrame, key_column: st
         "only_in_target": sorted(only_in_target),
         "in_both_count": len(in_both),
     }
+
+
+def compare_distribution(source_df: pd.DataFrame, target_df: pd.DataFrame, column: str):
+    source_counts = source_df[column].value_counts(dropna=False)
+    target_counts = target_df[column].value_counts(dropna=False)
+
+    # Combineer beide indexen (alle unieke waarden)
+    all_values = set(source_counts.index).union(set(target_counts.index))
+
+    differences = {}
+
+    for value in all_values:
+        source_val = source_counts.get(value, 0)
+        target_val = target_counts.get(value, 0)
+
+        differences[value] = target_val - source_val
+
+    return source_counts, target_counts, differences

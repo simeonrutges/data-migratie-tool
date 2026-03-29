@@ -158,4 +158,4 @@ The Excel report contains:
 
 ## License
 
-This project is intended for learning and personal use.
+This project is licensed under the MIT License.

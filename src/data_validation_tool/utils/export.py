@@ -102,6 +102,7 @@ def style_worksheet(worksheet) -> None:
         calculated_width = max(max_length + 4, 14)
         worksheet.column_dimensions[column_letter].width = calculated_width
 
+
 def highlight_differences(worksheet) -> None:
     """
     Highlight de 'bron' en 'doel' kolommen in de field_differences sheet.
@@ -175,6 +176,6 @@ def export_report_to_excel(
         style_worksheet(workbook["summary"])
         style_worksheet(workbook["distribution"])
         style_worksheet(workbook["field_differences"])
-    
+
         # Highlight verschillen in de field_differences sheet
         highlight_differences(workbook["field_differences"])

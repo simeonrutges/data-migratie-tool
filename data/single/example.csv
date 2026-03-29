@@ -1,5 +1,5 @@
-id,naam,geboortedatum,status
-1,Jan Jansen,1985-04-12,Actief
+id,naam,geboortedatum,status,land
+1,Jan Jansen,1985-04-12,Actief,Belgie
 2,Marie Dubois,1990-11-23,Actief
 3,Luca Rossi,1978-06-05,Inactief
 4,Anna Müller,1988-09-17,Actief

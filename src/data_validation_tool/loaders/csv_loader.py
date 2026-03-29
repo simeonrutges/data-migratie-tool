@@ -1,9 +1,6 @@
 import pandas as pd
 
 
-import pandas as pd
-
-
 def load_csv(path: str) -> pd.DataFrame:
     """
     Laadt een CSV-bestand in als pandas DataFrame.

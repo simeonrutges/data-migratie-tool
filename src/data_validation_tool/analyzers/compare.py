@@ -102,7 +102,7 @@ def compare_rows(
 
             differences.append(
                 {
-                    "id": row[key_column],
+                    "key": row[key_column],
                     "kolom": column,
                     "bron": source_value,
                     "doel": target_value,

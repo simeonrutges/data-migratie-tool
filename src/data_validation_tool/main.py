@@ -1,93 +1,3 @@
-# from data_validation_tool.loaders.csv_loader import load_csv
-# from data_validation_tool.analyzers.counts import (
-#     count_total,
-#     count_nulls,
-#     count_unique,
-#     count_duplicates,
-#     count_per_value,
-# )
-# from data_validation_tool.analyzers.compare import (
-#     compare_ids,
-#     compare_distribution,
-#     compare_rows,
-#     get_interesting_columns,
-# )
-
-
-# def main() -> None:
-#     df = load_csv("data/single/example.csv")
-
-#     print("=== BASIS ANALYSE ===")
-#     print(f"Totaal aantal records: {count_total(df)}")
-#     print(f"Aantal unieke IDs: {count_unique(df, 'id')}")
-#     print(f"Aantal duplicate IDs: {count_duplicates(df, 'id')}")
-#     print("\nNulls per kolom:")
-#     print(count_nulls(df))
-#     print("\nAantal per status:")
-#     print(count_per_value(df, "status"))
-
-#     bron_df = load_csv("data/compare/bron.csv")
-#     doel_df = load_csv("data/compare/doel.csv")
-
-#     print("\nKolommen in bron:")
-#     print(bron_df.columns)
-
-#     print("\n=== VERGELIJKING BRON VS DOEL ===")
-
-#     source_ids = set(bron_df["id"].dropna())
-#     target_ids = set(doel_df["id"].dropna())
-
-#     print(f"Totaal IDs in bron: {len(source_ids)}")
-#     print(f"Totaal IDs in doel: {len(target_ids)}")
-
-#     result = compare_ids(bron_df, doel_df, "id")
-
-#     print(f"Overeenkomende IDs: {result['in_both_count']}")
-#     print(f"Alleen in bron: {result['only_in_source']}")
-#     print(f"Alleen in doel: {result['only_in_target']}")
-
-#     print("\n=== DISTRIBUTIE VERGELIJKING ===")
-
-#     interesting_columns = get_interesting_columns(
-#         bron_df,
-#         max_unique=10,
-#         exclude_columns=["id"],
-#     )
-
-#     print(f"Interessante kolommen: {interesting_columns}")
-
-#     for column in interesting_columns:
-#         print(f"\n--- Kolom: {column} ---")
-
-#     source_counts, target_counts, diff = compare_distribution(bron_df, doel_df, column)
-
-#     print("\nBron:")
-#     print(source_counts)
-
-#     print("\nDoel:")
-#     print(target_counts)
-
-#     print("\nVerschil (doel - bron):")
-#     for value, difference in diff.items():
-#         print(f"{value}: {difference:+}")
-
-#     print("\n=== VELD-VERSCHILLEN ===")
-
-#     row_differences = compare_rows(bron_df, doel_df, "id")
-
-#     if not row_differences:
-#         print("Geen veldverschillen gevonden.")
-#     else:
-#         for diff in row_differences:
-#             print(
-#                 f"ID {diff['id']} - kolom '{diff['kolom']}': "
-#                 f"bron='{diff['bron']}' -> doel='{diff['doel']}'"
-#             )
-
-
-# if __name__ == "__main__":
-#     main()
-
 from data_validation_tool.loaders.csv_loader import load_csv
 from data_validation_tool.analyzers.counts import (
     count_total,
@@ -102,6 +12,7 @@ from data_validation_tool.analyzers.compare import (
     compare_rows,
     get_interesting_columns,
 )
+from data_validation_tool.utils.export import export_differences_to_csv
 
 
 def main() -> None:
@@ -184,7 +95,16 @@ def main() -> None:
 
     print("\nDetails single dataset:")
     print("\nStatusverdeling:")
-    print(status_counts)
+    
+    for value, count in status_counts.items():
+        label = "Leeg" if str(value) == "nan" else value
+        print(f"- {label}: {count}")
+
+    # Exporteer veldverschillen naar CSV
+    output_file = "output/field_differences.csv"
+    export_differences_to_csv(row_differences, output_file)
+
+    print(f"\nCSV export gemaakt: {output_file}")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,177 @@
-id,naam,geboortedatum,status
-1,Jan Jansen,1985-04-12,Actief
-2,Marie Dubois,1990-11-23,Actief
-3,Luca Rossi,1978-06-05,Inactief
-4,Anna Müller,1988-09-17,Actief
-5,Carlos Garcia,1995-02-28,Actief
-7,John Smith,1975-07-30,Actief
-8,Yuki Tanaka,1992-12-03,Actief
-9,Chen Wei,1980-03-21,Actief
-10,Ana Silva,1998-08-10,Actief
-11,Omar Hassan,1987-01-01,Actief
+﻿id;naam;geboortedatum;status;land;klanttype;kanaal;saldo_eur
+1001;Lucas Müller;1966-02-14;Inactief;Nederland;Particulier;Online;€ 3.993,97
+1002;Ali Wilson;1966-06-05;Actief;Nederland;Particulier;Online;€ 690,37
+1003;  omar lópez  ;1994-02-25;Inactief;Nederland;Particulier;Online;€ 7.417,42
+1004;Yuki López;1983-12-17;Actief;België;VIP;Online;€ 743,46
+1005;Marie Brown;1969-05-04;Actief;Nederland;Particulier;Online;€ 2.800,82
+1006;;1968-07-15;Actief;Frankrijk;Particulier;Kantoor;€ 4.564,64
+1007;Ali Tanaka;1996-08-09;Actief;Duitsland;Zakelijk;Kantoor;€ 7.652,73
+1009;Sofia López;1995-08-31;Inactief;Duitsland;Particulier;Telefonisch;€ 5.615,94
+1010;Elif Nguyen;1995-11-14;Actief;Duitsland;Zakelijk;Kantoor;€ 6.540,29
+1011;Aisha Meijer;1966-06-10;Geblokkeerd;;Particulier;Kantoor;€ 136,36
+1012;Omar Nguyen;1987-05-25;Geblokkeerd;Spanje;Particulier;Online;€ 2.375,02
+1013;Aisha Dijkstra;1990-03-08;Actief;Duitsland;Particulier;Telefonisch;-€ 500,00
+1014;Noah Bakker;1987-02-20;Actief;Nederland;Particulier;Telefonisch;€ 11.548,51
+1015;Sara Kowalski;1983-12-09;;Nederland;Particulier;Online;€ 4.168,42
+1016;Simeon Kowalski;1997-05-01;Actief;Spanje;Zakelijk;Kantoor;€ 7.754,21
+1017;Mila Müller;1978-03-02;Actief;België;VIP;Kantoor;€ 3.922,75
+1018;Yuki Bakker;2005-12-09;Actief;Duitsland;Zakelijk;Online;€ 7.487,87
+1020;Simeon Müller;1981-04-14;Geblokkeerd;Frankrijk;Particulier;Online;€ 4.208,91
+1021;Hugo Santos;1968-07-14;Actief;België;Particulier;Kantoor;€ 4.345,80
+1022;Emma Peeters;1972-05-30;Actief;Spanje;Particulier;Online;€ 2.739,38
+1023;Nora Visser;1997-09-29;Inactief;Duitsland;Particulier;Telefonisch;-€ 2,90
+1024;;1976-02-14;Actief;Nederland;Particulier;Online;€ 8.487,16
+1025;Aisha Jansen;1968-03-09;Inactief;Nederland;Particulier;Online;€ 2.571,28
+1026;Sofia Kowalski;1986-10-11;Actief;Nederland;Zakelijk;Telefonisch;€ 7.143,83
+1027;Emma Hassan;2000-03-13;Actief;Nederland;Particulier;Telefonisch;€ 2.444,02
+1028;Zoe Dijkstra;1967-06-07;Inactief;Spanje;Particulier;Online;€ 6.484,54
+1029;Mila Sahin;2003-08-27;Actief;Nederland;Particulier;Online;€ 5.466,50
+1030;Zoe Costa;1968-05-20;Actief;Duitsland;Particulier;Online;€ 7.052,06
+1031;Nora Meijer;1965-08-30;Opgezegd;Spanje;Zakelijk;Online;€ 2.266,07
+1032;Lina Petrov;1967-08-19;Actief;Nederland;Particulier;Kantoor;€ 4.374,95
+1033;Sara Martin;1977-10-18;Actief;Spanje;VIP;Telefonisch;€ 3.879,77
+1034;Carlos Tanaka;1967-08-17;Actief;;Zakelijk;Online;€ 2.607,99
+1036;Marie Kowalski;2003-08-30;Actief;Nederland;Zakelijk;Online;€ 3.351,76
+1037;Eva Dubois;1992-10-13;Actief;Duitsland;Particulier;Online;€ 3.918,29
+1038;Mila Devries;1976-11-30;Actief;Duitsland;Particulier;Online;€ 8.358,30
+1039;Leo Costa;1968-04-03;Actief;Duitsland;Particulier;Online;€ 967,74
+1040;Noah Costa;1980-08-28;Geblokkeerd;Spanje;Particulier;Online;€ 3.421,11
+1041;Amir Peeters;1996-07-23;Actief;Spanje;Zakelijk;Online;€ 2.442,66
+1043;Nora García;1977-03-21;Actief;Nederland;Particulier;Telefonisch;€ 6.201,79
+1044;Sofia Petrov;2005-09-25;Geblokkeerd;Nederland;Particulier;Online;€ 1.548,22
+1045;Simeon Silva;1999-08-05;Actief;Spanje;;Online;€ 3.212,23
+1046;Luca Rossi;2004-08-12;Inactief;Nederland;Particulier;Online;€ 746,07
+1047;Nora García;1984-04-12;Actief;Nederland;Zakelijk;Kantoor;€ 8.041,54
+1048;Omar Kowalski;1976-03-12;Inactief;Nederland;Particulier;Kantoor;-€ 402,11
+1049;Eva Dijkstra;1971-12-08;Opgezegd;Nederland;Particulier;Kantoor;€ 5.477,36
+1050;Yuki Dijkstra;1979-11-26;Inactief;Nederland;Particulier;Telefonisch;€ 6.788,96
+1051;AISHA IVANOVA;1972-02-22;Inactief;Nederland;Zakelijk;Kantoor;€ 5.088,73
+1052;Fatima Kim;1978-09-10;Geblokkeerd;Spanje;Particulier;Telefonisch;€ 9.279,73
+1053;Lina Silva;1977-07-01;Geblokkeerd;Spanje;Particulier;Telefonisch;-€ 500,00
+1054;Nora Silva;1966-03-29;Actief;Spanje;Particulier;Kantoor;€ 8.851,14
+1055;Sofia Dubois;1969-11-12;Inactief;Nederland;Zakelijk;Online;€ 5.581,37
+1056;Hugo Santos;1973-07-12;Actief;Duitsland;Particulier;Kantoor;€ 4.062,73
+1057;Nora Kowalski;1997-04-10;Opgezegd;Duitsland;Particulier;Online;€ 10.182,65
+1058;Eva Silva;1994-10-04;Geblokkeerd;Duitsland;Particulier;Online;€ 2.209,24
+1059;Chen Silva;1983-01-19;Inactief;België;Particulier;Telefonisch;€ 827,59
+1061;Chen Sahin;1991-01-07;Inactief;Nederland;Particulier;Telefonisch;-€ 500,00
+1062;Sara Dijkstra;1972-08-12;Inactief;Nederland;Particulier;Telefonisch;€ 3.850,99
+1063;Marie Meijer;1998-09-11;Actief;Nederland;Zakelijk;Online;€ 11.911,49
+1064;Eva Ahmed;1999-06-22;Actief;Nederland;Particulier;Online;€ 6.504,31
+1065;Mats Brown;1987-03-06;Actief;Nederland;Particulier;Kantoor;€ 7.927,93
+1066;Leo Wilson;1974-10-26;Actief;Spanje;Particulier;Online;-€ 280,98
+1067;Aisha Costa;2003-01-21;Actief;Nederland;Particulier;Online;€ 1.919,34
+1068;Leo Petrov;1984-11-08;Actief;Duitsland;Particulier;Kantoor;€ 3.314,79
+1069;Nora Martin;2005-03-31;Actief;Frankrijk;Particulier;Kantoor;€ 5.407,54
+1070;Leo Bakker;1986-09-27;Inactief;Nederland;Particulier;Online;€ 2.293,60
+1071;Sofia Silva;1979-05-06;Geblokkeerd;Frankrijk;Particulier;Online;€ 5.314,11
+1072;Chen Wilson;1979-11-05;Actief;Nederland;Particulier;Online;€ 5.791,71
+1073;Hugo Visser;1991-03-15;Opgezegd;Nederland;Zakelijk;Telefonisch;-€ 500,00
+1075;Nora Sahin;1992-01-23;Geblokkeerd;België;Particulier;Online;€ 1.011,51
+1076;Sara Brown;1997-06-26;Actief;België;Particulier;Telefonisch;€ 6.876,55
+1077;Simeon Costa;1982-09-04;Inactief;Duitsland;Particulier;Online;€ 5.388,14
+1078;;1979-09-08;Actief;Nederland;Zakelijk;Online;€ 2.883,51
+1079;Omar Hasan;1983-11-29;Actief;Nederland;Particulier;Online;€ 6.798,79
+1080;Lucas Rossi;2000-01-17;Opgezegd;Nederland;Particulier;Online;€ 4.198,49
+1081;Amir Jansen;1992-11-14;Actief;Nederland;Particulier;Telefonisch;€ 5.068,03
+1082;Leo Kim;1972-07-12;Inactief;Spanje;Particulier;Kantoor;€ 8.454,04
+1083;Yuki Khan;1969-11-07;Geblokkeerd;Spanje;Particulier;Kantoor;-€ 500,00
+1084;Omar Rossi;1991-07-24;Inactief;Duitsland;Particulier;Kantoor;€ 8.908,06
+1085;Zoe Kowalski;1991-12-08;Geblokkeerd;Frankrijk;Particulier;Online;€ 165,51
+1086;Marie Bakker;1994-01-18;Actief;Frankrijk;Zakelijk;Online;€ 3.358,01
+1087;Jonas Nguyen;2004-12-29;Geblokkeerd;Duitsland;Particulier;Telefonisch;€ 6.369,73
+1088;Sara Costa;1989-02-28;Inactief;België;Zakelijk;Telefonisch;€ 3.721,78
+1089;Mila Ahmed;1976-01-06;Geblokkeerd;Nederland;;Online;€ 449,94
+1090;Lina Silva;1966-04-16;Actief;Nederland;Particulier;Online;€ 5.045,45
+1092;Julia Wilson;1986-12-01;Actief;Nederland;Particulier;Telefonisch;€ 3.820,24
+1093;Fatima Sahin;1965-10-10;Actief;Nederland;Particulier;Online;€ 1.436,79
+1094;David Kim;1984-02-02;Opgezegd;België;Particulier;Online;€ 2.645,55
+1095;Carlos Ivanova;1975-05-06;Actief;;Particulier;Online;€ 4.337,10
+1096;Omar Dijkstra;1986-09-21;Actief;België;Zakelijk;Telefonisch;€ 2.413,47
+1097;Luca Meijer;1973-09-16;Actief;Nederland;Particulier;Telefonisch;€ 4.798,29
+1098;Sofia Ivanov;1978-02-08;Inactief;Nederland;Zakelijk;Online;€ 4.810,31
+1099;Zoe Jansen;1990-10-02;Actief;België;Particulier;Kantoor;€ 4.113,27
+1100;Luca Meijer;1967-12-07;Actief;Nederland;Particulier;Online;€ 9.769,14
+1101;Noah Sahin;1990-04-01;Opgezegd;Nederland;Particulier;Telefonisch;€ 940,54
+1102;Eva Hassan;1999-10-18;Actief;België;Particulier;Kantoor;€ 6.095,33
+1103;Chen Khan;1990-07-05;Actief;Duitsland;Zakelijk;Kantoor;€ 4.705,33
+1104;Maya Rossi;1972-01-18;Actief;België;Particulier;Online;€ 6.060,41
+1105;Mats De Vries;1986-01-30;Actief;;Particulier;Telefonisch;€ 106,93
+1106;Elif Ivanova;2000-05-04;Inactief;België;Zakelijk;Online;€ 5.416,21
+1108;Julia Meijer;1990-07-14;Opgezegd;Nederland;Particulier;Online;€ 6.273,57
+1109;Lina Ivanova;1987-06-14;Actief;Nederland;Particulier;Kantoor;€ 3.830,37
+1110;Simeon Rossi;1975-04-09;Opgezegd;Frankrijk;Particulier;Kantoor;€ 408,29
+1111;Leo Kowalski;2001-11-06;Actief;Spanje;Zakelijk;Online;€ 584,25
+1112;Yuki Santos;1984-07-21;Inactief;België;Particulier;Online;-€ 500,00
+1113;Mila Silva;1995-01-23;Actief;Nederland;Particulier;Online;€ 2.721,43
+1114;Leo Peeters;1966-08-25;Actief;Nederland;Particulier;Kantoor;€ 1.784,34
+1115;Chen Wei;1988-02-01;Geblokkeerd;Nederland;Zakelijk;Online;€ 7.390,51
+1116;Eva Visser;1987-05-13;Inactief;Frankrijk;Particulier;Online;€ 5.330,66
+1117;Elif Khan;1984-08-27;Geblokkeerd;België;Particulier;Telefonisch;€ 5.542,94
+1118;Carlos Peeters;1965-08-13;Opgezegd;Nederland;VIP;Kantoor;€ 5,40
+1119;Fatima Müller;1994-01-21;Geblokkeerd;België;Particulier;Online;€ 3.420,86
+1120;Emma Hassan;1985-06-28;Actief;Nederland;Zakelijk;Online;€ 9.455,39
+1121;;2003-10-05;Actief;Frankrijk;Zakelijk;Online;€ 4.718,32
+1122;Simeon Khan;1997-07-27;Actief;België;VIP;Online;€ 2.053,98
+1124;Mats Hassan;1990-08-26;Actief;Frankrijk;Particulier;Online;€ 1.885,62
+1125;Emma López;2005-12-22;Geblokkeerd;Nederland;Particulier;Kantoor;€ 7.450,80
+1126;Anna García;1987-07-14;Opgezegd;Nederland;Particulier;Kantoor;€ 3.806,29
+1127;Luca Bakker;2005-11-03;Actief;Duitsland;Particulier;Telefonisch;€ 5.982,56
+1128;Sofia Silva;1992-12-16;Inactief;Duitsland;Zakelijk;Kantoor;€ 6.800,44
+1129;Zoe Peeters;1982-02-17;Opgezegd;Duitsland;Zakelijk;Online;€ 446,53
+1130;Aisha Nguyen;1995-09-14;Actief;Spanje;Zakelijk;Online;€ 3.210,69
+1131;Luca Visser;1993-06-06;Inactief;Nederland;Particulier;Online;€ 6.638,69
+1132;Anna Khan;1981-01-30;Actief;Nederland;Particulier;Telefonisch;€ 4.648,51
+1133;Sara Smith;1972-08-17;Actief;Duitsland;Particulier;Telefonisch;€ 496,25
+1134;Aisha Martin;1993-08-13;Actief;Nederland;Particulier;Kantoor;€ 4.254,29
+1135;Hugo Khan;1995-05-25;Actief;Nederland;VIP;Kantoor;€ 2.023,17
+1136;Mats Ivanova;1985-06-29;Geblokkeerd;Nederland;Particulier;Online;€ 11.022,73
+1137;Aisha Brown;1990-08-28;Actief;Nederland;Particulier;Online;€ 5.554,69
+1138;Simeon Santos;2003-10-22;Inactief;Duitsland;Particulier;Telefonisch;€ 1.737,21
+1139;Emma Meijer;2005-07-23;Geblokkeerd;Frankrijk;Particulier;Kantoor;€ 4.551,90
+1140;Sofia Kowalski;1998-11-23;Inactief;Nederland;Zakelijk;Telefonisch;€ 5.984,05
+1141;Hugo Nguyen;1993-12-29;Actief;Frankrijk;Particulier;Online;€ 8.362,82
+1142;Mila Dijkstra;1983-08-22;Actief;Nederland;Particulier;Kantoor;€ 8.712,51
+1143;David Bakker;2005-12-23;Actief;Nederland;Zakelijk;Kantoor;€ 6.492,84
+1144;Zoe Silva;2001-01-28;;Spanje;Particulier;Kantoor;€ 3.723,43
+1145;Zoe Kowalski;1997-06-27;Inactief;Nederland;VIP;Telefonisch;€ 6.565,56
+1146;Sofia Peeters;1970-07-18;Actief;Duitsland;Particulier;Telefonisch;€ 5.707,55
+1147;Amir Nguyen;1981-08-31;Actief;Nederland;Particulier;Kantoor;-€ 500,00
+1149;Luca García;1967-01-13;Opgezegd;Nederland;Particulier;Online;€ 5.348,22
+1150;Fatima Kim;1995-01-29;Opgezegd;Duitsland;Particulier;Telefonisch;€ 3.216,32
+1151;Julia García;2004-09-19;Actief;Nederland;Particulier;Online;€ 4.888,95
+1152;Jonas Tanaka;1984-11-21;Inactief;Nederland;Particulier;Kantoor;€ 3.983,40
+1153;Jonas Peeters;2005-06-13;Opgezegd;Nederland;Particulier;Online;€ 8.111,32
+1154;Fatima Rossi;1994-09-24;Actief;Duitsland;VIP;Online;€ 7.974,15
+1155;Mila Hassan;1970-08-26;Inactief;Nederland;Zakelijk;Telefonisch;-€ 190,86
+1156;Aisha Silva;1999-09-27;Actief;Spanje;Particulier;Kantoor;€ 1.551,48
+1157;Noah García;1989-03-26;Actief;Nederland;Particulier;Online;€ 9.125,15
+1158;Aisha Santos;1979-07-11;Actief;Nederland;Particulier;Online;€ 4.661,20
+1159;Lucas de Vries;1967-11-08;Actief;Frankrijk;Particulier;Online;-€ 500,00
+1160;Anna Dijkstra;2000-02-18;Geblokkeerd;Duitsland;Particulier;Telefonisch;€ 4.037,15
+1161;Simeon Dubois;1986-06-27;Geblokkeerd;Nederland;Particulier;Telefonisch;-€ 500,00
+1162;Mila De Vries;1971-08-28;Actief;Nederland;Particulier;Online;€ 6.283,05
+1163;Mila Brown;1991-10-19;Actief;België;Particulier;Online;€ 2.564,66
+1164;Lucas Petrov;1999-06-30;Actief;Frankrijk;Particulier;Kantoor;-€ 500,00
+1165;Chen Silva;2002-02-12;Actief;Nederland;Particulier;Online;€ 2.821,33
+1167;Julia Kim;2001-06-01;Actief;Nederland;VIP;Telefonisch;€ 2.812,73
+1168;Zoe Kowalski;1998-08-28;Actief;Spanje;Particulier;Online;€ 1.676,06
+1169;Carlos Kim;1969-08-25;Actief;Nederland;Particulier;Online;€ 8.406,99
+1170;Jonas Müller;1999-03-18;Geblokkeerd;Nederland;Particulier;Telefonisch;€ 7.601,73
+1171;Leo Meijer;1992-11-21;Inactief;Duitsland;Particulier;Kantoor;€ 5.257,66
+1172;Yuki Ivanova;1996-07-10;Inactief;Spanje;Particulier;Online;€ 2.260,59
+1173;Noah Santos;1994-06-27;Actief;Nederland;Particulier;Online;€ 4.152,39
+1174;Chen Martin;1980-04-17;Actief;Nederland;Particulier;Kantoor;€ 2.251,65
+1175;Eva Rossi;2004-08-16;Actief;Nederland;Particulier;Telefonisch;€ 3.629,15
+1176;Emma De Vries;1984-10-30;Actief;Nederland;Particulier;Online;€ 8.284,06
+1177;Luca Khan;1995-06-04;Inactief;België;Particulier;Online;€ 1.203,88
+1178;Simeon Tanaka;1978-07-10;Opgezegd;Frankrijk;Zakelijk;Online;€ 6.516,09
+1180;Sara Kim;1968-03-26;Actief;Duitsland;Particulier;Online;€ 4.191,26
+2001;Marie Ahmed;1984-01-17;Opgezegd;Spanje;Zakelijk;Kantoor;€ 3.683,85
+2002;Lina Jansen;1984-07-27;Inactief;Spanje;Zakelijk;Kantoor;€ 3.406,16
+2003;Elif Kim;1973-12-14;Opgezegd;Nederland;Particulier;Telefonisch;€ 2.416,65
+2004;Lina Ahmed;1983-12-02;Geblokkeerd;België;Zakelijk;Online;€ 3.386,14
+2005;Marie Bakker;1998-05-28;Actief;Spanje;VIP;Online;€ 6.924,63
+2006;Julia Meijer;1998-12-14;Inactief;België;Particulier;Online;€ 3.708,27
+2007;Sofia Tanaka;1977-10-13;Inactief;Nederland;Particulier;Kantoor;€ 813,24
+2008;Leo Santos;1990-02-19;Geblokkeerd;Duitsland;Particulier;Telefonisch;€ 5.154,83

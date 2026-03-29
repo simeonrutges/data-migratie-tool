@@ -1,106 +1,161 @@
 # Data Validation Tool
 
-Een Python-tool voor het analyseren en vergelijken van datasets (CSV).
+## Overview
 
-De tool helpt bij:
-- data-analyse (aantallen, nulls, duplicaten)
-- vergelijking tussen bron- en doeldatasets
-- detecteren van verschillen per record en per kolom
-- inzicht in distributies (bijv. statusverdeling)
+This project provides a lightweight data validation tool designed to compare datasets and identify inconsistencies. It is particularly useful in data migration scenarios, where data from a source system must be validated against a target system.
+
+The tool performs automated checks on CSV-based datasets and generates both console output and structured reports (CSV and Excel).
 
 ---
 
-## Functionaliteiten
+## Features
 
-### Single dataset analyse
-- totaal aantal records
-- aantal unieke IDs
-- duplicate IDs
-- nulls per kolom
-- verdeling per kolom (bijv. status)
+### Single Dataset Analysis
 
----
+* Total number of records
+* Unique and duplicate ID detection
+* Null value analysis per column
+* Value distribution (e.g. status counts)
 
-### Vergelijking (bron vs doel)
-- aantal IDs in bron en doel
-- overlap tussen datasets
-- ontbrekende records (alleen in bron / alleen in doel)
+### Dataset Comparison (Source vs Target)
 
----
+* Total IDs in source and target
+* Matching IDs
+* Missing IDs in either dataset
+* Row-level field comparison
 
-### Distributie vergelijking
-Vergelijkt hoe waarden verdeeld zijn.
+### Distribution Comparison
 
-Voorbeeld:
+* Compares value distributions per column
+* Highlights differences between source and target
 
-status:
-Actief +2
-Inactief -2
+### Reporting
 
+* Console summary output
+* CSV exports:
 
----
+  * summary.csv
+  * distribution_differences.csv
+  * field_differences.csv
+* Excel report:
 
-### Field-level vergelijking
-Toont exacte verschillen per record:
-
-ID 9 - status: Inactief -> Actief
-
----
-
-### Lichte normalisatie
-Bij vergelijking wordt rekening gehouden met:
-- hoofdletters (case-insensitive)
-- spaties (trim)
-
-Voorbeeld:
-
-" Actief " == "actief"
-
-
-Accenten worden **niet genegeerd**:
-
-
-"García" != "Garcia"
-
+  * Multiple sheets (summary, distribution, field differences)
+  * Styled headers
+  * Auto-sized columns
+  * Filters enabled
+  * Differences highlighted
 
 ---
 
-## Projectstructuur
+## Project Structure
 
-src/
-data_validation_tool/
-analyzers/
-loaders/
-utils/
-main.py
-data/
-single/
-compare/
-Makefile
+```
+src/data_validation_tool/
+  loaders/       # Data loading logic (e.g. CSV)
+  analyzers/     # Core analysis and comparison logic
+  utils/         # Helper functions (e.g. export, styling)
+  main.py        # Application entry point
+
+output/          # Generated reports (CSV and Excel)
+```
 
 ---
 
-## Runnen
+## Usage
 
-Gebruik Makefile:
+### Run the application
 
-```bash
+```
 make run
+```
 
-Of direct:
+### Open the Excel report
 
-PYTHONPATH=src uv run python -m data_validation_tool.main
-Vereisten
-Python 3.13+
-uv (package manager)
+```
+make open
+```
 
-Installeren:
+### Run and open in one step
 
-uv sync
-Toekomstige uitbreidingen
-ondersteuning voor JSON en Excel
-export naar CSV/Excel
-configureerbare kolommen en keys
-verbeterde output/rapportage
+```
+make all
+```
+
+### Format the code
+
+```
+make format
+```
+
+### Install dependencies
+
+```
+make install
+```
 
 ---
+
+## Input Data
+
+By default, the tool expects:
+
+```
+data/single/example.csv
+data/compare/bron.csv
+data/compare/doel.csv
+```
+
+These paths are currently hardcoded in `main.py`.
+
+---
+
+## Output
+
+After running the tool, the following files are generated:
+
+```
+output/
+  summary.csv
+  distribution_differences.csv
+  field_differences.csv
+  report.xlsx
+```
+
+The Excel report contains:
+
+* Summary metrics
+* Distribution differences
+* Field-level differences
+
+---
+
+## Technologies Used
+
+* Python
+* pandas
+* openpyxl
+* Makefile (for workflow automation)
+
+---
+
+## Notes
+
+* The tool currently supports CSV input.
+* The comparison key is hardcoded (default: `id`).
+* Output files are not intended to be committed to version control.
+
+---
+
+## Future Improvements
+
+* Configurable input paths and column mappings
+* Support for JSON and other formats
+* CLI arguments instead of hardcoded paths
+* Enhanced validation rules (e.g. tolerances, normalization)
+* Improved Excel reporting (conditional formatting, summaries)
+
+---
+
+## License
+
+This project is intended for learning and personal use.

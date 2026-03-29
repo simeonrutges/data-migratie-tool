@@ -1,6 +1,5 @@
 import pandas as pd
 from openpyxl.styles import Font, PatternFill
-from openpyxl.utils import get_column_letter
 
 
 def export_differences_to_csv(differences: list[dict], output_path: str) -> None:
@@ -103,6 +102,35 @@ def style_worksheet(worksheet) -> None:
         calculated_width = max(max_length + 4, 14)
         worksheet.column_dimensions[column_letter].width = calculated_width
 
+def highlight_differences(worksheet) -> None:
+    """
+    Highlight de 'bron' en 'doel' kolommen in de field_differences sheet.
+
+    Doel:
+    - visueel duidelijk maken waar verschillen zitten
+    """
+
+    highlight_fill = PatternFill(
+        fill_type="solid",
+        start_color="FFF2CC",
+        end_color="FFF2CC",
+    )
+
+    # Zoek kolomindexen op basis van header
+    header = [cell.value for cell in worksheet[1]]
+
+    try:
+        bron_index = header.index("bron") + 1
+        doel_index = header.index("doel") + 1
+    except ValueError:
+        # Als kolommen niet bestaan, doe niets
+        return
+
+    # Loop door alle rijen behalve header
+    for row in worksheet.iter_rows(min_row=2):
+        row[bron_index - 1].fill = highlight_fill
+        row[doel_index - 1].fill = highlight_fill
+
 
 def export_report_to_excel(
     summary_data: list[dict],
@@ -147,3 +175,6 @@ def export_report_to_excel(
         style_worksheet(workbook["summary"])
         style_worksheet(workbook["distribution"])
         style_worksheet(workbook["field_differences"])
+    
+        # Highlight verschillen in de field_differences sheet
+        highlight_differences(workbook["field_differences"])

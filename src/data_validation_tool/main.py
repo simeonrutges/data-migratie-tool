@@ -22,6 +22,8 @@ from data_validation_tool.reporting.console import (
     print_single_summary,
 )
 
+from data_validation_tool.reporting.summary import build_summary_export
+
 
 def main() -> None:
     """
@@ -38,7 +40,6 @@ def main() -> None:
         distribution_columns=DISTRIBUTION_COLUMNS,
     )
 
-    df = single_result["dataframe"]
     total_records = single_result["total_records"]
     unique_ids = single_result["unique_ids"]
     duplicate_ids = single_result["duplicate_ids"]
@@ -83,52 +84,19 @@ def main() -> None:
 
     print_single_distributions(distribution_results)
 
-    summary_export = [
-        {"categorie": "single_dataset", "metric": "bestand", "value": SINGLE_FILE_PATH},
-        {"categorie": "single_dataset", "metric": "records", "value": total_records},
-        {
-            "categorie": "single_dataset",
-            "metric": f"unieke_{KEY_COLUMN}s",
-            "value": unique_ids,
-        },
-        {
-            "categorie": "single_dataset",
-            "metric": f"duplicate_{KEY_COLUMN}s",
-            "value": duplicate_ids,
-        },
-        {"categorie": "compare", "metric": "bronbestand", "value": SOURCE_FILE_PATH},
-        {"categorie": "compare", "metric": "doelbestand", "value": TARGET_FILE_PATH},
-        {
-            "categorie": "compare",
-            "metric": f"bron_{KEY_COLUMN}s",
-            "value": len(source_ids),
-        },
-        {
-            "categorie": "compare",
-            "metric": f"doel_{KEY_COLUMN}s",
-            "value": len(target_ids),
-        },
-        {
-            "categorie": "compare",
-            "metric": f"overeenkomende_{KEY_COLUMN}s",
-            "value": compare_result["in_both_count"],
-        },
-        {
-            "categorie": "compare",
-            "metric": "alleen_in_bron",
-            "value": str(compare_result["only_in_source"]),
-        },
-        {
-            "categorie": "compare",
-            "metric": "alleen_in_doel",
-            "value": str(compare_result["only_in_target"]),
-        },
-        {
-            "categorie": "compare",
-            "metric": "veldverschillen_aantal",
-            "value": len(row_differences),
-        },
-    ]
+    summary_export = build_summary_export(
+    single_file_path=SINGLE_FILE_PATH,
+    source_file_path=SOURCE_FILE_PATH,
+    target_file_path=TARGET_FILE_PATH,
+    key_column=KEY_COLUMN,
+    total_records=total_records,
+    unique_ids=unique_ids,
+    duplicate_ids=duplicate_ids,
+    source_ids=source_ids,
+    target_ids=target_ids,
+    compare_result=compare_result,
+    row_differences=row_differences,
+    )
 
     summary_output_file = "output/summary.csv"
     distribution_output_file = "output/distribution_differences.csv"

@@ -20,4 +20,4 @@ DISTRIBUTION_COLUMNS = ["status", "land"]
 # - "single"  -> alleen single dataset analyse
 # - "compare" -> alleen bron/doel vergelijking
 # - "all"     -> beide
-MODE = "all"
+MODE = "single"

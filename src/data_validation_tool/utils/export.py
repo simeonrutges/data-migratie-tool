@@ -157,7 +157,7 @@ def export_report_to_excel(
     distribution_df = pd.DataFrame(distribution_data)
 
     if not differences_data:
-        differences_df = pd.DataFrame(columns=["id", "kolom", "bron", "doel"])
+        differences_df = pd.DataFrame(columns=["Key", "kolom", "bron", "doel"])
     else:
         differences_df = pd.DataFrame(differences_data)
 

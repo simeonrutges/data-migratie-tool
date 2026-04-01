@@ -15,3 +15,9 @@ KEY_COLUMN = "id"
 DISTRIBUTION_COLUMNS = ["status", "land"]
 
 # Compare selecteert zelf de belangrijkste distributie kolommen
+
+# Run mode:
+# - "single"  -> alleen single dataset analyse
+# - "compare" -> alleen bron/doel vergelijking
+# - "all"     -> beide
+MODE = "all"

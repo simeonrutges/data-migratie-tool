@@ -2,10 +2,10 @@
 # Configuratie voor data validation tool
 # --------------------------------------------------
 
-# Input bestanden
+# Input bestanden: .json , .csv, .xlsx
 SINGLE_FILE_PATH = "data/single/example.csv"
-SOURCE_FILE_PATH = "data/compare/bron.csv"
-TARGET_FILE_PATH = "data/compare/doel.csv"
+SOURCE_FILE_PATH = "data/compare/bron.json"
+TARGET_FILE_PATH = "data/compare/doel.xlsx"
 
 # Belangrijke kolommen
 KEY_COLUMN = "id"
@@ -20,4 +20,4 @@ DISTRIBUTION_COLUMNS = ["status", "land"]
 # - "single"  -> alleen single dataset analyse
 # - "compare" -> alleen bron/doel vergelijking
 # - "all"     -> beide
-MODE = "single"
+MODE = "compare"

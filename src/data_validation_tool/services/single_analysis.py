@@ -5,7 +5,7 @@ from data_validation_tool.analyzers.counts import (
     count_total,
     count_unique,
 )
-from data_validation_tool.loaders.csv_loader import load_csv
+from data_validation_tool.loaders.file_loader import load_file
 
 
 def run_single_analysis(
@@ -16,6 +16,11 @@ def run_single_analysis(
     """
     Voert een single dataset analyse uit op één bestand.
 
+    Ondersteunde bestandstypen:
+    - CSV
+    - Excel (.xlsx)
+    - JSON
+
     Parameters:
     - file_path: pad naar het inputbestand
     - key_column: kolom die gebruikt wordt als unieke sleutel
@@ -24,7 +29,7 @@ def run_single_analysis(
     Returns:
     - dict met alle resultaten van de single analyse
     """
-    df = load_csv(file_path)
+    df = load_file(file_path)
 
     total_records = count_total(df)
     unique_ids = count_unique(df, key_column)

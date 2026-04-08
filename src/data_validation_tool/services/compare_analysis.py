@@ -4,7 +4,7 @@ from data_validation_tool.analyzers.compare import (
     compare_rows,
     get_interesting_columns,
 )
-from data_validation_tool.loaders.csv_loader import load_csv
+from data_validation_tool.loaders.file_loader import load_file
 from data_validation_tool.utils.validation import validate_required_column
 
 
@@ -16,6 +16,11 @@ def run_compare_analysis(
     """
     Voert een vergelijking uit tussen bron- en doeldataset.
 
+    Ondersteunde bestandstypen:
+    - CSV
+    - Excel (.xlsx)
+    - JSON
+
     Parameters:
     - source_file_path: pad naar bronbestand
     - target_file_path: pad naar doelbestand
@@ -24,8 +29,8 @@ def run_compare_analysis(
     Returns:
     - dict met alle resultaten van de compare-analyse
     """
-    bron_df = load_csv(source_file_path)
-    doel_df = load_csv(target_file_path)
+    bron_df = load_file(source_file_path)
+    doel_df = load_file(target_file_path)
 
     # De key-kolom is verplicht voor een geldige vergelijking.
     validate_required_column(bron_df.columns, key_column, "bron")

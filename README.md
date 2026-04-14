@@ -1,161 +1,170 @@
 # Data Validation Tool
 
-## Overview
+## Overzicht
 
-This project provides a lightweight data validation tool designed to compare datasets and identify inconsistencies. It is particularly useful in data migration scenarios, where data from a source system must be validated against a target system.
+Deze tool is ontwikkeld om datasets te analyseren en te vergelijken in het kader van datamigraties. De focus ligt op het snel inzichtelijk maken van verschillen, datakwaliteit en verdelingen tussen bron- en doeldata.
 
-The tool performs automated checks on CSV-based datasets and generates both console output and structured reports (CSV and Excel).
+De tool ondersteunt meerdere bestandsformaten en kan gebruikt worden voor zowel:
 
----
+* analyse van één dataset (profiling)
+* vergelijking tussen bron- en doeldata
 
-## Features
-
-### Single Dataset Analysis
-
-* Total number of records
-* Unique and duplicate ID detection
-* Null value analysis per column
-* Value distribution (e.g. status counts)
-
-### Dataset Comparison (Source vs Target)
-
-* Total IDs in source and target
-* Matching IDs
-* Missing IDs in either dataset
-* Row-level field comparison
-
-### Distribution Comparison
-
-* Compares value distributions per column
-* Highlights differences between source and target
-
-### Reporting
-
-* Console summary output
-* CSV exports:
-
-  * summary.csv
-  * distribution_differences.csv
-  * field_differences.csv
-* Excel report:
-
-  * Multiple sheets (summary, distribution, field differences)
-  * Styled headers
-  * Auto-sized columns
-  * Filters enabled
-  * Differences highlighted
+De huidige versie is een **Minimum Viable Product (MVP)** en is gericht op praktische toepasbaarheid binnen migratieprojecten.
 
 ---
 
-## Project Structure
+## Functionaliteiten
 
-```
+### 1. Single dataset analyse
+
+Analyse van één dataset met de volgende inzichten:
+
+* totaal aantal records
+* aantal unieke keys
+* aantal duplicate keys
+* null-waardes per kolom
+* verdeling van geselecteerde kolommen (bijv. status, land)
+
+---
+
+### 2. Vergelijking bron vs doel
+
+Vergelijkt twee datasets op basis van een key en geeft:
+
+* aantal records in bron en doel
+* overlap tussen datasets
+* records die alleen in bron of doel voorkomen
+* distributieverschillen per kolom
+* veldverschillen op recordniveau
+
+---
+
+### 3. Ondersteunde bestandsformaten
+
+De tool kan automatisch bestanden inlezen op basis van extensie:
+
+* CSV (`.csv`)
+* Excel (`.xlsx`)
+* JSON (`.json`)
+
+---
+
+### 4. Export
+
+Resultaten worden geëxporteerd naar:
+
+* CSV-bestanden:
+
+  * `summary.csv`
+  * `distribution_differences.csv`
+  * `field_differences.csv`
+
+* Excel rapport:
+
+  * `report.xlsx` met meerdere tabbladen
+
+---
+
+## Projectstructuur
+
+```text
 src/data_validation_tool/
-  loaders/       # Data loading logic (e.g. CSV)
-  analyzers/     # Core analysis and comparison logic
-  utils/         # Helper functions (e.g. export, styling)
-  main.py        # Application entry point
-
-output/          # Generated reports (CSV and Excel)
+├── analyzers/        # Data-analyse logica (counts, compare)
+├── loaders/          # Inlezen van CSV, Excel en JSON
+├── services/         # Orchestratie van analyses
+├── reporting/        # Console output en summary builders
+├── utils/            # Export en helper functies
+├── config.py         # Configuratie
+├── main.py           # Entry point
 ```
 
 ---
 
-## Usage
+## Configuratie
 
-### Run the application
+Configuratie gebeurt via `config.py`.
 
+Voorbeeld:
+
+```python
+SINGLE_FILE_PATH = "data/single/example.csv"
+SOURCE_FILE_PATH = "data/compare/bron.json"
+TARGET_FILE_PATH = "data/compare/doel.xlsx"
+
+KEY_COLUMN = "id"
+DISTRIBUTION_COLUMNS = ["status", "land"]
+
+MODE = "all"  # "single", "compare", "all"
 ```
-make run
-```
 
-### Open the Excel report
+---
 
-```
-make open
-```
+## Gebruik
 
-### Run and open in one step
+Run de tool via:
 
-```
+```bash
 make all
 ```
 
-### Format the code
+Of direct:
 
-```
-make format
-```
-
-### Install dependencies
-
-```
-make install
+```bash
+PYTHONPATH=src python -m data_validation_tool.main
 ```
 
 ---
 
-## Input Data
+## Modi
 
-By default, the tool expects:
+De tool ondersteunt drie modi:
 
-```
-data/single/example.csv
-data/compare/bron.csv
-data/compare/doel.csv
-```
+* `single`
+  Alleen analyse van één dataset
 
-These paths are currently hardcoded in `main.py`.
+* `compare`
+  Alleen vergelijking tussen bron en doel
 
----
-
-## Output
-
-After running the tool, the following files are generated:
-
-```
-output/
-  summary.csv
-  distribution_differences.csv
-  field_differences.csv
-  report.xlsx
-```
-
-The Excel report contains:
-
-* Summary metrics
-* Distribution differences
-* Field-level differences
+* `all`
+  Beide analyses
 
 ---
 
-## Technologies Used
+## Huidige beperkingen
 
-* Python
-* pandas
-* openpyxl
-* Makefile (for workflow automation)
+Deze versie gaat uit van:
 
----
+* gelijke kolomnamen tussen bron en doel
+* één key-kolom voor matching
+* eenvoudige JSON-structuren (platte lijsten)
 
-## Notes
-
-* The tool currently supports CSV input.
-* The comparison key is hardcoded (default: `id`).
-* Output files are not intended to be committed to version control.
+Complexere migraties (zoals veldmapping, business keys en transformaties) worden nog niet ondersteund.
 
 ---
 
-## Future Improvements
+## Toekomstige uitbreidingen
 
-* Configurable input paths and column mappings
-* Support for JSON and other formats
-* CLI arguments instead of hardcoded paths
-* Enhanced validation rules (e.g. tolerances, normalization)
-* Improved Excel reporting (conditional formatting, summaries)
+Mogelijke vervolgstappen:
+
+* ondersteuning voor business key matching (i.p.v. technische ID)
+* veldmapping tussen bron en doel
+* waarde- en fase-mapping
+* betere ondersteuning voor geneste JSON
+* uitbreiding van validatieregels
+* geautomatiseerde tests
 
 ---
 
-## License
+## Doel
 
-This project is licensed under the MIT License.
+De tool is bedoeld als:
+
+* hulpmiddel voor datakwaliteitsanalyse
+* ondersteuning bij migratievalidatie
+* snelle "health check" van datasets
+
+---
+
+## Status
+
+MVP — actief in ontwikkeling

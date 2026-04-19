@@ -1,3 +1,29 @@
+# def print_single_summary(
+#     file_path: str,
+#     key_column: str,
+#     total_records: int,
+#     unique_ids: int,
+#     duplicate_ids: int,
+#     null_counts,
+# ) -> None:
+#     """
+#     Print een samenvatting van de single dataset analyse.
+#     """
+#     print("\nSingle dataset:")
+#     print(f"- bestand: {file_path}")
+#     print(f"- records: {total_records}")
+#     print(f"- unieke {key_column}s: {unique_ids}")
+#     print(f"- duplicate {key_column}s: {duplicate_ids}")
+
+#     non_zero_nulls = null_counts[null_counts > 0]
+#     if non_zero_nulls.empty:
+#         print("- nulls: geen")
+#     else:
+#         null_summary = ", ".join(
+#             f"{column}={count}" for column, count in non_zero_nulls.items()
+#         )
+#         print(f"- nulls: {null_summary}")
+
 def print_single_summary(
     file_path: str,
     key_column: str,
@@ -5,6 +31,10 @@ def print_single_summary(
     unique_ids: int,
     duplicate_ids: int,
     null_counts,
+    business_duplicates=None,
+    missing_required_fields=None,
+    field_validation_issues=None,
+    allowed_value_issues=None,
 ) -> None:
     """
     Print een samenvatting van de single dataset analyse.
@@ -15,6 +45,9 @@ def print_single_summary(
     print(f"- unieke {key_column}s: {unique_ids}")
     print(f"- duplicate {key_column}s: {duplicate_ids}")
 
+    # -------------------------
+    # Nulls (bestaande logica)
+    # -------------------------
     non_zero_nulls = null_counts[null_counts > 0]
     if non_zero_nulls.empty:
         print("- nulls: geen")
@@ -23,6 +56,47 @@ def print_single_summary(
             f"{column}={count}" for column, count in non_zero_nulls.items()
         )
         print(f"- nulls: {null_summary}")
+
+    # -------------------------
+    # Business duplicates
+    # -------------------------
+    if business_duplicates:
+        print("\nMogelijke duplicaten (business key):")
+        for dup in business_duplicates[:5]:  # max 5 tonen
+            key_str = ", ".join(
+                f"{k}={v}" for k, v in dup["business_key"].items()
+            )
+            print(f"- {key_str} → {dup['count']}x (ids: {dup['ids']})")
+
+    # -------------------------
+    # Missing required fields
+    # -------------------------
+    if missing_required_fields:
+        print("\nRecords met ontbrekende velden:")
+        for item in missing_required_fields[:5]:
+            print(f"- id {item['id']} → {', '.join(item['missing_fields'])}")
+
+    # -------------------------
+    # Field validation issues
+    # -------------------------
+    if field_validation_issues:
+        print("\nVeldvalidatie problemen:")
+        for item in field_validation_issues[:5]:
+            print(
+                f"- id {item['id']} | {item['field']} → {item['issues']} "
+                f"(waarde: {item['value']})"
+            )
+
+    # -------------------------
+    # Allowed value issues
+    # -------------------------
+    if allowed_value_issues:
+        print("\nOngeldige waarden:")
+        for item in allowed_value_issues[:5]:
+            print(
+                f"- id {item['id']} | {item['field']} → {item['value']} "
+                f"(toegestaan: {item['allowed_values']})"
+            )
 
 
 def print_compare_summary(

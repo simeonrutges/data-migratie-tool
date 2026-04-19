@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1001,
+    "naam": "Jan Jansen",
+    "status": "Actief",
+    "land": "Nederland",
+    "klanttype": "Particulier"
+  },
+  {
+    "id": 1002,
+    "naam": "Sara de Vries",
+    "status": "Inactief",
+    "land": "Nederland",
+    "klanttype": "Zakelijk"
+  },
+  {
+    "id": 1003,
+    "naam": "Ali Hassan",
+    "status": "Actief",
+    "land": "België",
+    "klanttype": "Particulier"
+  }
+]

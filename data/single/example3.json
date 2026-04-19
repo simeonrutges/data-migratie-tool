@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1001,
+    "nm": "Jan Jansen",
+    "stats": "Ac",
+    "lnd": "Neder",
+    "klnttype": null
+  },
+  {
+    "id": 1002,
+    "nm": "Sara de Vries",
+    "stats": "In",
+    "lnd": null,
+    "klnttype": null
+  },
+  {
+    "id": 1003,
+    "nm": "Ali Hassan",
+    "stats": "Ac",
+    "lnd": "België",
+    "klnttype": "Part"
+  },
+  {
+    "id": 1003,
+    "nm": "Ali Hassan",
+    "stats": "Ac",
+    "lnd": "België",
+    "klnttype": "Part"
+  }
+]

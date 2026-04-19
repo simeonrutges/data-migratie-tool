@@ -10,7 +10,8 @@
 # - Start de main module
 run:
 	mkdir -p output
-	PYTHONPATH=src uv run python -m data_validation_tool.main
+# 	PYTHONPATH=src uv run python -m data_validation_tool.main
+	PYTHONPATH=src uv run --active python -m data_validation_tool.main
 
 
 # --------------------------------------------------

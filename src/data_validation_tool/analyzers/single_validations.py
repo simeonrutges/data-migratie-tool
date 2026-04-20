@@ -242,6 +242,5 @@ def validate_fields(df, key_column, field_validations):
 
     return results
 
+
 # Extra: welke duplicate ids
-
-

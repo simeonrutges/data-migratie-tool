@@ -1,36 +1,11 @@
-# def print_single_summary(
-#     file_path: str,
-#     key_column: str,
-#     total_records: int,
-#     unique_ids: int,
-#     duplicate_ids: int,
-#     null_counts,
-# ) -> None:
-#     """
-#     Print een samenvatting van de single dataset analyse.
-#     """
-#     print("\nSingle dataset:")
-#     print(f"- bestand: {file_path}")
-#     print(f"- records: {total_records}")
-#     print(f"- unieke {key_column}s: {unique_ids}")
-#     print(f"- duplicate {key_column}s: {duplicate_ids}")
-
-#     non_zero_nulls = null_counts[null_counts > 0]
-#     if non_zero_nulls.empty:
-#         print("- nulls: geen")
-#     else:
-#         null_summary = ", ".join(
-#             f"{column}={count}" for column, count in non_zero_nulls.items()
-#         )
-#         print(f"- nulls: {null_summary}")
-
 def print_single_summary(
     file_path: str,
     key_column: str,
     total_records: int,
     unique_ids: int,
     duplicate_ids: int,
-    null_counts,
+    duplicate_details=None,
+    null_counts=None,
     business_duplicates=None,
     missing_required_fields=None,
     field_validation_issues=None,
@@ -38,6 +13,19 @@ def print_single_summary(
 ) -> None:
     """
     Print een samenvatting van de single dataset analyse.
+
+    Parameters:
+    - file_path: pad naar het geanalyseerde bestand
+    - key_column: kolom die als technische sleutel gebruikt wordt
+    - total_records: totaal aantal records in de dataset
+    - unique_ids: aantal unieke waarden in de key-kolom
+    - duplicate_ids: aantal duplicate key-waarden
+    - duplicate_details: lijst met duplicate waarden en hun frequentie
+    - null_counts: overzicht van null-waardes per kolom
+    - business_duplicates: optionele lijst met mogelijke business-key duplicaten
+    - missing_required_fields: optionele lijst met records met ontbrekende verplichte velden
+    - field_validation_issues: optionele lijst met veldvalidatieproblemen
+    - allowed_value_issues: optionele lijst met ongeldige waarden buiten toegestane domeinen
     """
     print("\nSingle dataset:")
     print(f"- bestand: {file_path}")
@@ -45,27 +33,33 @@ def print_single_summary(
     print(f"- unieke {key_column}s: {unique_ids}")
     print(f"- duplicate {key_column}s: {duplicate_ids}")
 
-    # -------------------------
-    # Nulls (bestaande logica)
-    # -------------------------
-    non_zero_nulls = null_counts[null_counts > 0]
-    if non_zero_nulls.empty:
-        print("- nulls: geen")
-    else:
-        null_summary = ", ".join(
-            f"{column}={count}" for column, count in non_zero_nulls.items()
+    # Toon ook welke duplicate waarden voorkomen en hoe vaak.
+    if duplicate_details:
+        duplicate_summary = ", ".join(
+            f"{item['value']} ({item['count']}x)" for item in duplicate_details
         )
-        print(f"- nulls: {null_summary}")
+        print(f"- duplicate waarden: {duplicate_summary}")
+
+    # -------------------------
+    # Nulls
+    # -------------------------
+    if null_counts is not None:
+        non_zero_nulls = null_counts[null_counts > 0]
+        if non_zero_nulls.empty:
+            print("- nulls: geen")
+        else:
+            null_summary = ", ".join(
+                f"{column}={count}" for column, count in non_zero_nulls.items()
+            )
+            print(f"- nulls: {null_summary}")
 
     # -------------------------
     # Business duplicates
     # -------------------------
     if business_duplicates:
         print("\nMogelijke duplicaten (business key):")
-        for dup in business_duplicates[:5]:  # max 5 tonen
-            key_str = ", ".join(
-                f"{k}={v}" for k, v in dup["business_key"].items()
-            )
+        for dup in business_duplicates[:5]:
+            key_str = ", ".join(f"{k}={v}" for k, v in dup["business_key"].items())
             print(f"- {key_str} → {dup['count']}x (ids: {dup['ids']})")
 
     # -------------------------

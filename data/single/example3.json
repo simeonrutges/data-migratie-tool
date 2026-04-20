@@ -11,14 +11,14 @@
     "nm": "Sara de Vries",
     "stats": "In",
     "lnd": null,
-    "klnttype": null
+    "klnttype": "Part"
   },
   {
     "id": 1003,
     "nm": "Ali Hassan",
     "stats": "Ac",
     "lnd": "België",
-    "klnttype": "Part"
+    "klnttype": null
   },
   {
     "id": 1003,

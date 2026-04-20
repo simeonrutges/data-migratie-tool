@@ -44,6 +44,7 @@ def main() -> None:
     distribution_export = []
     row_differences = []
     duplicate_export = []
+    duplicate_details_export = []
 
     # Variabelen alvast initialiseren zodat export later veilig blijft werken.
     total_records = 0
@@ -89,6 +90,25 @@ def main() -> None:
                         "aantal": item["count"],
                     }
                 )
+
+        duplicate_details_export = []
+
+        df = single_result["dataframe"]
+
+        for column, details in single_result["duplicate_results"].items():
+            for item in details:
+                value = item["value"]
+
+                matching_rows = df[df[column] == value]
+
+                for _, row in matching_rows.iterrows():
+                    duplicate_details_export.append(
+                        {
+                            "kolom": column,
+                            "waarde": value,
+                            "key": row[KEY_COLUMN],
+                        }
+                    )
 
         print_single_summary(
             file_path=SINGLE_FILE_PATH,
@@ -174,6 +194,7 @@ def main() -> None:
             distribution_data=[],
             differences_data=[],
             duplicate_data=duplicate_export,
+            duplicate_details_data=duplicate_details_export,
             output_path=excel_output_file,
             mode=MODE,
         )
@@ -184,6 +205,7 @@ def main() -> None:
             distribution_data=distribution_export,
             differences_data=row_differences,
             duplicate_data=duplicate_export,
+            duplicate_details_data=duplicate_details_export,
             output_path=excel_output_file,
             mode=MODE,
         )

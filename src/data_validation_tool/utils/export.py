@@ -138,6 +138,7 @@ def export_report_to_excel(
     distribution_data: list[dict],
     differences_data: list[dict],
     duplicate_data: list[dict],
+    duplicate_details_data: list[dict],
     output_path: str,
     mode: str,
 ) -> None:
@@ -160,6 +161,7 @@ def export_report_to_excel(
     summary_df = pd.DataFrame(summary_data)
     distribution_df = pd.DataFrame(distribution_data)
     duplicates_df = pd.DataFrame(duplicate_data)
+    duplicate_details_df = pd.DataFrame(duplicate_details_data)
 
     if not differences_data:
         differences_df = pd.DataFrame(columns=["key", "kolom", "bron", "doel"])
@@ -173,6 +175,7 @@ def export_report_to_excel(
         # Duplicates-sheet is relevant in single/all mode.
         if mode in ["all", "single"]:
             duplicates_df.to_excel(writer, sheet_name="duplicates", index=False)
+            duplicate_details_df.to_excel(writer, sheet_name="duplicate_details", index=False)
 
         # Compare-gerelateerde sheets alleen maken als de mode dat vraagt.
         if mode in ["all", "compare"]:
@@ -190,6 +193,7 @@ def export_report_to_excel(
 
         if mode in ["all", "single"]:
             style_worksheet(workbook["duplicates"])
+            style_worksheet(workbook["duplicate_details"])
 
         if mode in ["all", "compare"]:
             style_worksheet(workbook["distribution"])

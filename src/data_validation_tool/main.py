@@ -17,6 +17,7 @@ from data_validation_tool.config import (
     REQUIRED_FIELDS,
     FIELD_VALIDATIONS,
     ALLOWED_VALUES,
+    DUPLICATE_CHECK_COLUMNS,
 )
 
 from data_validation_tool.reporting.console import (
@@ -67,6 +68,7 @@ def main() -> None:
             required_fields=REQUIRED_FIELDS,
             field_validations=FIELD_VALIDATIONS,
             allowed_values=ALLOWED_VALUES,
+            duplicate_check_columns=DUPLICATE_CHECK_COLUMNS,
         )
 
         total_records = single_result["total_records"]
@@ -82,6 +84,7 @@ def main() -> None:
             unique_ids=unique_ids,
             duplicate_ids=duplicate_ids,
             duplicate_details=single_result["duplicate_details"],
+            duplicate_results=single_result["duplicate_results"],
             null_counts=null_counts,
             business_duplicates=single_result["business_duplicates"],
             missing_required_fields=single_result["missing_required_fields"],

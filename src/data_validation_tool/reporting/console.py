@@ -6,6 +6,7 @@ def print_single_summary(
     duplicate_ids: int,
     duplicate_details=None,
     null_counts=None,
+    duplicate_results=None,
     business_duplicates=None,
     missing_required_fields=None,
     field_validation_issues=None,
@@ -39,6 +40,19 @@ def print_single_summary(
             f"{item['value']} ({item['count']}x)" for item in duplicate_details
         )
         print(f"- duplicate waarden: {duplicate_summary}")
+
+    # -------------------------
+    # Duplicate checks per kolom (optioneel)
+    # -------------------------
+    if duplicate_results:
+        for column, details in duplicate_results.items():
+            if column == key_column or not details:
+                continue
+
+            duplicate_summary = ", ".join(
+                f"{item['value']} ({item['count']}x)" for item in details
+            )
+            print(f"- duplicate waarden in {column}: {duplicate_summary}")
 
     # -------------------------
     # Nulls

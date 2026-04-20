@@ -23,6 +23,7 @@ def run_single_analysis(
     required_fields: list[str] | None = None,
     field_validations: dict | None = None,
     allowed_values: dict | None = None,
+    duplicate_check_columns: list[str] | None = None,
 ) -> dict:
     """
     Voert een single dataset analyse uit op één bestand.
@@ -40,6 +41,8 @@ def run_single_analysis(
     - required_fields: velden die per record verplicht zijn
     - field_validations: validatieregels per veld, bijvoorbeeld email/telefoon
     - allowed_values: toegestane waarden per veld
+    - duplicate_check_columns: optionele lijst met kolommen waarop duplicate checks
+      uitgevoerd moeten worden. Als niets is opgegeven, wordt standaard de key-kolom gebruikt.
 
     Returns:
     - dict met alle resultaten van de single analyse
@@ -50,7 +53,18 @@ def run_single_analysis(
     unique_ids = count_unique(df, key_column)
     duplicate_ids = count_duplicates(df, key_column)
     null_counts = count_nulls(df)
-    duplicate_details = get_duplicate_details(df, key_column)
+
+    # Gebruik standaard de key-kolom voor duplicate checks als er niets is geconfigureerd.
+    columns_to_check = duplicate_check_columns or [key_column]
+
+    duplicate_results = {}
+
+    for column in columns_to_check:
+        if column in df.columns:
+            duplicate_results[column] = get_duplicate_details(df, column)
+
+    # Voor backwards compatibility houden we duplicate_details apart voor de key-kolom.
+    duplicate_details = duplicate_results.get(key_column, [])
 
     distribution_results = {}
 
@@ -79,4 +93,5 @@ def run_single_analysis(
         "field_validation_issues": field_validation_issues,
         "allowed_value_issues": allowed_value_issues,
         "duplicate_details": duplicate_details,
+        "duplicate_results": duplicate_results,
     }

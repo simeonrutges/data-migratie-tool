@@ -30,6 +30,13 @@ MODE = "single"
 # Extra configuratie voor uitgebreide single-mode validaties
 # --------------------------------------------------
 
+# Kolommen waarop duplicate checks worden uitgevoerd.
+# Laat op None staan om automatisch de key-kolom te gebruiken.
+# Voorbeeld:DUPLICATE_CHECK_COLUMNS = ["id", "email"]
+# DUPLICATE_CHECK_COLUMNS = None
+DUPLICATE_CHECK_COLUMNS = ["stats"]
+
+
 # Functionele duplicate-detectie op business key
 BUSINESS_KEY_COLUMNS = ["nm", "stats", "lnd", "klnttype"]
 

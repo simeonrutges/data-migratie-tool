@@ -34,7 +34,7 @@ MODE = "single"
 # Laat op None staan om automatisch de key-kolom te gebruiken.
 # Voorbeeld:DUPLICATE_CHECK_COLUMNS = ["id", "email"]
 # DUPLICATE_CHECK_COLUMNS = None
-DUPLICATE_CHECK_COLUMNS = ["stats"]
+DUPLICATE_CHECK_COLUMNS = ["id", "stats"]
 
 
 # Functionele duplicate-detectie op business key

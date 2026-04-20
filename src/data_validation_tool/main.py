@@ -43,6 +43,7 @@ def main() -> None:
     summary_export = []
     distribution_export = []
     row_differences = []
+    duplicate_export = []
 
     # Variabelen alvast initialiseren zodat export later veilig blijft werken.
     total_records = 0
@@ -77,6 +78,18 @@ def main() -> None:
         null_counts = single_result["null_counts"]
         distribution_results = single_result["distribution_results"]
 
+        duplicate_export = []
+
+        for column, details in single_result["duplicate_results"].items():
+            for item in details:
+                duplicate_export.append(
+                    {
+                        "kolom": column,
+                        "waarde": item["value"],
+                        "aantal": item["count"],
+                    }
+                )
+        
         print_single_summary(
             file_path=SINGLE_FILE_PATH,
             key_column=KEY_COLUMN,
@@ -157,17 +170,22 @@ def main() -> None:
 
     if MODE == "single":
         export_report_to_excel(
-            summary_export,
-            [],
-            [],
-            excel_output_file,
+            summary_data=summary_export,
+            distribution_data=[],
+            differences_data=[],
+            duplicate_data=duplicate_export,
+            output_path=excel_output_file,
+            mode=MODE,
         )
+
     elif MODE in ["all", "compare"]:
         export_report_to_excel(
-            summary_export,
-            distribution_export,
-            row_differences,
-            excel_output_file,
+            summary_data=summary_export,
+            distribution_data=distribution_export,
+            differences_data=row_differences,
+            duplicate_data=duplicate_export,
+            output_path=excel_output_file,
+            mode=MODE,
         )
 
     print(f"Excel export gemaakt: {excel_output_file}")

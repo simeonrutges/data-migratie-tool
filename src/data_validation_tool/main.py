@@ -89,7 +89,7 @@ def main() -> None:
                         "aantal": item["count"],
                     }
                 )
-        
+
         print_single_summary(
             file_path=SINGLE_FILE_PATH,
             key_column=KEY_COLUMN,

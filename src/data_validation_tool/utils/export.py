@@ -1,5 +1,6 @@
 import pandas as pd
 from openpyxl.styles import Font, PatternFill
+from openpyxl.utils import get_column_letter
 
 
 def export_differences_to_csv(differences: list[dict], output_path: str) -> None:
@@ -40,10 +41,6 @@ def export_distribution_to_csv(distribution_data: list[dict], output_path: str) 
     """
     df = pd.DataFrame(distribution_data)
     df.to_csv(output_path, index=False)
-
-
-from openpyxl.styles import Font, PatternFill
-from openpyxl.utils import get_column_letter
 
 
 def style_worksheet(worksheet) -> None:

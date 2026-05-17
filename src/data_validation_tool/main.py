@@ -38,6 +38,11 @@ def main() -> None:
     - compare
     - all
     """
+    if MODE not in ["single", "compare", "all"]:
+        raise ValueError(
+            f"Ongeldige MODE: '{MODE}'. Gebruik 'single', 'compare' of 'all'."
+        )
+
     print("=== SAMENVATTING ===")
 
     summary_export = []
@@ -151,11 +156,6 @@ def main() -> None:
 
         print_distribution_differences(distribution_export)
         print_row_differences(row_differences, KEY_COLUMN)
-
-    if MODE not in ["single", "compare", "all"]:
-        raise ValueError(
-            f"Ongeldige MODE: '{MODE}'. Gebruik 'single', 'compare' of 'all'."
-        )
 
     summary_export = build_summary_export(
         mode=MODE,

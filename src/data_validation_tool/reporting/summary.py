@@ -45,7 +45,6 @@ def build_summary_export(
                     "metric": f"duplicate_{key_column}s",
                     "value": duplicate_ids,
                 },
-        
             ]
         )
 

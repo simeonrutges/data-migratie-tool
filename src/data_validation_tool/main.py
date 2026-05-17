@@ -1,170 +1,3 @@
-# from data_validation_tool.services.single_analysis import run_single_analysis
-# from data_validation_tool.services.compare_analysis import run_compare_analysis
-# from data_validation_tool.utils.export import (
-#     export_differences_to_csv,
-#     export_distribution_to_csv,
-#     export_report_to_excel,
-#     export_summary_to_csv,
-# )
-# from data_validation_tool.config import (
-#     SINGLE_FILE_PATH,
-#     SOURCE_FILE_PATH,
-#     TARGET_FILE_PATH,
-#     KEY_COLUMN,
-#     DISTRIBUTION_COLUMNS,
-#     MODE,
-# )
-
-# from data_validation_tool.reporting.console import (
-#     print_compare_summary,
-#     print_distribution_differences,
-#     print_row_differences,
-#     print_single_distributions,
-#     print_single_summary,
-# )
-
-# from data_validation_tool.reporting.summary import build_summary_export
-
-
-# def main() -> None:
-#     """
-#     Voert data-validatie uit in één van de volgende modi:
-#     - single
-#     - compare
-#     - all
-#     """
-#     print("=== SAMENVATTING ===")
-
-#     summary_export = []
-#     distribution_export = []
-#     row_differences = []
-
-#     # Variabelen alvast initialiseren zodat export later veilig blijft werken.
-#     total_records = 0
-#     unique_ids = 0
-#     duplicate_ids = 0
-#     null_counts = None
-#     distribution_results = {}
-
-#     source_ids = set()
-#     target_ids = set()
-#     compare_result = {
-#         "in_both_count": 0,
-#         "only_in_source": [],
-#         "only_in_target": [],
-#     }
-
-#     if MODE in ["all", "single"]:
-#         single_result = run_single_analysis(
-#             file_path=SINGLE_FILE_PATH,
-#             key_column=KEY_COLUMN,
-#             distribution_columns=DISTRIBUTION_COLUMNS,
-#         )
-
-#         total_records = single_result["total_records"]
-#         unique_ids = single_result["unique_ids"]
-#         duplicate_ids = single_result["duplicate_ids"]
-#         null_counts = single_result["null_counts"]
-#         distribution_results = single_result["distribution_results"]
-
-#         print_single_summary(
-#             SINGLE_FILE_PATH,
-#             KEY_COLUMN,
-#             total_records,
-#             unique_ids,
-#             duplicate_ids,
-#             null_counts,
-#         )
-
-#         print_single_distributions(distribution_results)
-
-#     if MODE in ["all", "compare"]:
-#         compare_analysis_result = run_compare_analysis(
-#             source_file_path=SOURCE_FILE_PATH,
-#             target_file_path=TARGET_FILE_PATH,
-#             key_column=KEY_COLUMN,
-#         )
-
-#         source_ids = compare_analysis_result["source_ids"]
-#         target_ids = compare_analysis_result["target_ids"]
-#         compare_result = compare_analysis_result["compare_result"]
-#         row_differences = compare_analysis_result["row_differences"]
-#         distribution_export = compare_analysis_result["distribution_export"]
-
-#         print_compare_summary(
-#             SOURCE_FILE_PATH,
-#             TARGET_FILE_PATH,
-#             KEY_COLUMN,
-#             source_ids,
-#             target_ids,
-#             compare_result,
-#         )
-
-#         print_distribution_differences(distribution_export)
-#         print_row_differences(row_differences, KEY_COLUMN)
-
-#     if MODE not in ["single", "compare", "all"]:
-#         raise ValueError(
-#             f"Ongeldige MODE: '{MODE}'. Gebruik 'single', 'compare' of 'all'."
-#         )
-
-#     summary_export = build_summary_export(
-#         mode=MODE,
-#         single_file_path=SINGLE_FILE_PATH,
-#         source_file_path=SOURCE_FILE_PATH,
-#         target_file_path=TARGET_FILE_PATH,
-#         key_column=KEY_COLUMN,
-#         total_records=total_records,
-#         unique_ids=unique_ids,
-#         duplicate_ids=duplicate_ids,
-#         source_ids=source_ids,
-#         target_ids=target_ids,
-#         compare_result=compare_result,
-#         row_differences=row_differences,
-#     )
-
-#     summary_output_file = "output/summary.csv"
-
-#     excel_output_file = "output/report.xlsx"
-
-#     # Summary export maken we altijd.
-#     export_summary_to_csv(summary_export, summary_output_file)
-#     print(f"\nCSV export gemaakt: {summary_output_file}")
-
-#     # Compare-specifieke exports alleen maken in compare/all mode.
-#     if MODE in ["all", "compare"]:
-#         distribution_output_file = "output/distribution_differences.csv"
-#         differences_output_file = "output/field_differences.csv"
-
-#         export_distribution_to_csv(distribution_export, distribution_output_file)
-#         export_differences_to_csv(row_differences, differences_output_file)
-
-#         print(f"CSV export gemaakt: {distribution_output_file}")
-#         print(f"CSV export gemaakt: {differences_output_file}")
-
-#     # Excel-rapport maken we altijd.
-#     # In single mode geven we lege compare-data mee.
-#     if MODE == "single":
-#         export_report_to_excel(
-#             summary_export,
-#             [],
-#             [],
-#             excel_output_file,
-#         )
-#     elif MODE in ["all", "compare"]:
-#         export_report_to_excel(
-#             summary_export,
-#             distribution_export,
-#             row_differences,
-#             excel_output_file,
-#         )
-
-#     print(f"Excel export gemaakt: {excel_output_file}")
-
-
-# if __name__ == "__main__":
-#     main()
-
 from data_validation_tool.services.single_analysis import run_single_analysis
 from data_validation_tool.services.compare_analysis import run_compare_analysis
 from data_validation_tool.utils.export import (
@@ -184,6 +17,7 @@ from data_validation_tool.config import (
     REQUIRED_FIELDS,
     FIELD_VALIDATIONS,
     ALLOWED_VALUES,
+    DUPLICATE_CHECK_COLUMNS,
 )
 
 from data_validation_tool.reporting.console import (
@@ -204,11 +38,18 @@ def main() -> None:
     - compare
     - all
     """
+    if MODE not in ["single", "compare", "all"]:
+        raise ValueError(
+            f"Ongeldige MODE: '{MODE}'. Gebruik 'single', 'compare' of 'all'."
+        )
+
     print("=== SAMENVATTING ===")
 
     summary_export = []
     distribution_export = []
     row_differences = []
+    duplicate_export = []
+    duplicate_details_export = []
 
     # Variabelen alvast initialiseren zodat export later veilig blijft werken.
     total_records = 0
@@ -234,6 +75,7 @@ def main() -> None:
             required_fields=REQUIRED_FIELDS,
             field_validations=FIELD_VALIDATIONS,
             allowed_values=ALLOWED_VALUES,
+            duplicate_check_columns=DUPLICATE_CHECK_COLUMNS,
         )
 
         total_records = single_result["total_records"]
@@ -242,13 +84,46 @@ def main() -> None:
         null_counts = single_result["null_counts"]
         distribution_results = single_result["distribution_results"]
 
+        duplicate_export = []
+
+        for column, details in single_result["duplicate_results"].items():
+            for item in details:
+                duplicate_export.append(
+                    {
+                        "kolom": column,
+                        "waarde": item["value"],
+                        "aantal": item["count"],
+                    }
+                )
+
+        duplicate_details_export = []
+
+        df = single_result["dataframe"]
+
+        for column, details in single_result["duplicate_results"].items():
+            for item in details:
+                value = item["value"]
+
+                matching_rows = df[df[column] == value]
+
+                for _, row in matching_rows.iterrows():
+                    duplicate_details_export.append(
+                        {
+                            "kolom": column,
+                            "waarde": value,
+                            "key": row[KEY_COLUMN],
+                        }
+                    )
+
         print_single_summary(
-            SINGLE_FILE_PATH,
-            KEY_COLUMN,
-            total_records,
-            unique_ids,
-            duplicate_ids,
-            null_counts,
+            file_path=SINGLE_FILE_PATH,
+            key_column=KEY_COLUMN,
+            total_records=total_records,
+            unique_ids=unique_ids,
+            duplicate_ids=duplicate_ids,
+            duplicate_details=single_result["duplicate_details"],
+            duplicate_results=single_result["duplicate_results"],
+            null_counts=null_counts,
             business_duplicates=single_result["business_duplicates"],
             missing_required_fields=single_result["missing_required_fields"],
             field_validation_issues=single_result["field_validation_issues"],
@@ -281,11 +156,6 @@ def main() -> None:
 
         print_distribution_differences(distribution_export)
         print_row_differences(row_differences, KEY_COLUMN)
-
-    if MODE not in ["single", "compare", "all"]:
-        raise ValueError(
-            f"Ongeldige MODE: '{MODE}'. Gebruik 'single', 'compare' of 'all'."
-        )
 
     summary_export = build_summary_export(
         mode=MODE,
@@ -320,17 +190,24 @@ def main() -> None:
 
     if MODE == "single":
         export_report_to_excel(
-            summary_export,
-            [],
-            [],
-            excel_output_file,
+            summary_data=summary_export,
+            distribution_data=[],
+            differences_data=[],
+            duplicate_data=duplicate_export,
+            duplicate_details_data=duplicate_details_export,
+            output_path=excel_output_file,
+            mode=MODE,
         )
+
     elif MODE in ["all", "compare"]:
         export_report_to_excel(
-            summary_export,
-            distribution_export,
-            row_differences,
-            excel_output_file,
+            summary_data=summary_export,
+            distribution_data=distribution_export,
+            differences_data=row_differences,
+            duplicate_data=duplicate_export,
+            duplicate_details_data=duplicate_details_export,
+            output_path=excel_output_file,
+            mode=MODE,
         )
 
     print(f"Excel export gemaakt: {excel_output_file}")

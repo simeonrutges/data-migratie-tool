@@ -1,5 +1,6 @@
 import pandas as pd
 from openpyxl.styles import Font, PatternFill
+from openpyxl.utils import get_column_letter
 
 
 def export_differences_to_csv(differences: list[dict], output_path: str) -> None:
@@ -40,10 +41,6 @@ def export_distribution_to_csv(distribution_data: list[dict], output_path: str) 
     """
     df = pd.DataFrame(distribution_data)
     df.to_csv(output_path, index=False)
-
-
-from openpyxl.styles import Font, PatternFill
-from openpyxl.utils import get_column_letter
 
 
 def style_worksheet(worksheet) -> None:
@@ -137,45 +134,65 @@ def export_report_to_excel(
     summary_data: list[dict],
     distribution_data: list[dict],
     differences_data: list[dict],
+    duplicate_data: list[dict],
+    duplicate_details_data: list[dict],
     output_path: str,
+    mode: str,
 ) -> None:
     """
-    Exporteert het volledige validatierapport naar één Excel-bestand.
+    Exporteert het validatierapport naar één Excel-bestand.
 
-    Sheets:
-    - summary
-    - distribution
-    - field_differences
+    Sheets per mode:
+    - single  -> summary, duplicates
+    - compare -> summary, distribution, field_differences
+    - all     -> summary, distribution, field_differences, duplicates
 
     Parameters:
     - summary_data: samenvattingsgegevens
     - distribution_data: distributieverschillen
     - differences_data: veldverschillen
+    - duplicate_data: duplicate details per kolom
     - output_path: pad naar het Excel-bestand
+    - mode: run mode ('single', 'compare', 'all')
     """
     summary_df = pd.DataFrame(summary_data)
     distribution_df = pd.DataFrame(distribution_data)
+    duplicates_df = pd.DataFrame(duplicate_data)
+    duplicate_details_df = pd.DataFrame(duplicate_details_data)
 
     if not differences_data:
-        differences_df = pd.DataFrame(columns=["Key", "kolom", "bron", "doel"])
+        differences_df = pd.DataFrame(columns=["key", "kolom", "bron", "doel"])
     else:
         differences_df = pd.DataFrame(differences_data)
 
-    # Schrijf alle dataframes naar aparte tabbladen in één workbook
     with pd.ExcelWriter(output_path, engine="openpyxl") as writer:
+        # Summary-sheet is altijd relevant.
         summary_df.to_excel(writer, sheet_name="summary", index=False)
-        distribution_df.to_excel(writer, sheet_name="distribution", index=False)
-        differences_df.to_excel(
-            writer,
-            sheet_name="field_differences",
-            index=False,
-        )
 
-        # Haal worksheets op en geef ze consistente styling
+        # Duplicates-sheet is relevant in single/all mode.
+        if mode in ["all", "single"]:
+            duplicates_df.to_excel(writer, sheet_name="duplicates", index=False)
+            duplicate_details_df.to_excel(writer, sheet_name="duplicate_details", index=False)
+
+        # Compare-gerelateerde sheets alleen maken als de mode dat vraagt.
+        if mode in ["all", "compare"]:
+            distribution_df.to_excel(writer, sheet_name="distribution", index=False)
+            differences_df.to_excel(
+                writer,
+                sheet_name="field_differences",
+                index=False,
+            )
+
         workbook = writer.book
-        style_worksheet(workbook["summary"])
-        style_worksheet(workbook["distribution"])
-        style_worksheet(workbook["field_differences"])
 
-        # Highlight verschillen in de field_differences sheet
-        highlight_differences(workbook["field_differences"])
+        # Style alleen sheets die echt bestaan.
+        style_worksheet(workbook["summary"])
+
+        if mode in ["all", "single"]:
+            style_worksheet(workbook["duplicates"])
+            style_worksheet(workbook["duplicate_details"])
+
+        if mode in ["all", "compare"]:
+            style_worksheet(workbook["distribution"])
+            style_worksheet(workbook["field_differences"])
+            highlight_differences(workbook["field_differences"])
